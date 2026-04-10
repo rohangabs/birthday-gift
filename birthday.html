@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday BAE 💖</title>
+
+<style>
+body {
+  margin:0;
+  font-family:'Poppins', sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fecfef);
+  text-align:center;
+  color:white;
+  overflow-x:hidden;
+}
+
+.container {
+  padding:20px;
+  max-width:420px;
+  margin:auto;
+}
+
+h1 { font-size:2.2rem; }
+
+#typing {
+  margin-top:10px;
+  font-size:1.1rem;
+  min-height:70px;
+  line-height:1.5;
+}
+
+button {
+  margin:8px;
+  padding:10px 18px;
+  border:none;
+  border-radius:25px;
+  background:white;
+  color:#ff4d6d;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* Cute Confetti */
+.confetti {
+  position: fixed;
+  font-size: 20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Cake */
+.cake {
+  font-size:70px;
+  margin-top:15px;
+  cursor:pointer;
+}
+
+/* Hearts */
+.heart {
+  position:fixed;
+  font-size:20px;
+  animation:float 4s linear infinite;
+}
+
+@keyframes float {
+  0% { transform:translateY(0); }
+  100% { transform:translateY(-100vh); }
+}
+
+/* Popup */
+.popup {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:none;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:center;
+}
+
+.popup-content {
+  background:white;
+  color:black;
+  padding:25px;
+  border-radius:15px;
+}
+
+.gallery img {
+  width:100%;
+  border-radius:15px;
+  margin-top:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 id="title">🎂 Happy Birthday!</h1>
+
+  <div id="typing"></div>
+
+  <button onclick="toggleMusic()">🎵 Play Music</button>
+  <button onclick="showSurprise()">🎁 Surprise</button>
+
+  <div class="cake" onclick="cutCake()">🎂</div>
+  <p>Tap cake BAE 🎉</p>
+
+  <input type="file" accept="image/*" onchange="loadImage(event)">
+
+  <div class="gallery">
+    <img id="photo" src="https://picsum.photos/400/200">
+  </div>
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2>💖 BAE 💖</h2>
+    <p>
+      8 years of us… 🥺<br><br>
+      You stayed with me in my worst,<br>
+      stood by me in every phase of life 💫<br><br>
+      You are not just my best friend,<br>
+      you are my safe place, my home 💖<br><br>
+      I love you forever BAE ❤️
+    </p>
+    <button onclick="closeSurprise()">Close</button>
+  </div>
+</div>
+
+<!-- Music -->
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<script>
+// 💖 NAME
+const name = "Chitranshi (BAE)";
+document.getElementById("title").innerText = `🎂 Happy Birthday, ${name}!`;
+
+// 💌 MESSAGE
+const message = "BAE… from 8 years to forever 💖 We've laughed, cried, fought, and still stayed together. You were there in my worst days and made them easier just by being there. You are my comfort, my happiness, my home 🥺 I’m so lucky to have you. Happy Birthday BAE 🎉✨";
+
+let i=0;
+function type(){
+  if(i<message.length){
+    document.getElementById("typing").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(type,40);
+  }
+}
+type();
+
+// 🎉 Cute Confetti (emoji style)
+function createConfetti(){
+  const emojis=["🎉","💖","✨","🎂","🌸"];
+  for(let i=0;i<30;i++){
+    let c=document.createElement("div");
+    c.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+    c.className="confetti";
+    c.style.left=Math.random()*100+"%";
+    c.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+setInterval(createConfetti,800);
+
+// 🎵 MUSIC
+let playing=false;
+function toggleMusic(){
+  const m=document.getElementById("music");
+  playing?m.pause():m.play();
+  playing=!playing;
+}
+
+// 🎁 POPUP
+function showSurprise(){
+  document.getElementById("popup").style.display="flex";
+}
+function closeSurprise(){
+  document.getElementById("popup").style.display="none";
+}
+
+// 🎂 CAKE
+function cutCake(){
+  alert("🍰 Make a wish BAE 💖🎉");
+  createHearts();
+}
+
+// 💖 HEARTS
+function createHearts(){
+  for(let i=0;i<10;i++){
+    let h=document.createElement("div");
+    h.innerHTML="💖";
+    h.className="heart";
+    h.style.left=Math.random()*100+"%";
+    h.style.fontSize=(Math.random()*20+20)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),4000);
+  }
+}
+
+// 📸 UPLOAD
+function loadImage(event){
+  document.getElementById("photo").src = URL.createObjectURL(event.target.files[0]);
+}
+</script>
+
+</body>
+</html>
